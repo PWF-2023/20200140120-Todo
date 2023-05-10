@@ -1,8 +1,7 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="front-semibold text-x1 text-gray-800 dark:text-gray-200 leading-tight">
-            {{('Todo') }}
+            {{__('Todo') }}
         </h2>
     </x-slot>
 
@@ -19,7 +18,7 @@
                         <x-text-input id="search" name="search" type="text" class="w-full"
                             placeholder="Search by name or email ..." value="{{ request('search') }}" autofocus/>
                         <x-primary-button type="submit">
-                            {{ ('Search') }}
+                            {{ __('Search') }}
                         </x-primary-button>
                     </form>
                 </div>
@@ -75,7 +74,8 @@
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <p>{{ $user->id }}</p>
                                 </td>
-<td class="px-6 py-4 font-medium text-gray-900 md:whitespace-nowrap dark:text-white">
+
+                                <td class="px-6 py-4 font-medium text-gray-900 md:whitespace-nowrap dark:text-white">
                                 <p>{{ $user->name }}</p>
                                 </td>
 
@@ -97,7 +97,31 @@
 
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-3">
-
+                                            @if ($user->is_admin)
+                                            <form action="{{ route('user.removeadmin', $user) }}" method="Post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                                                    Remove Admin
+                                                </button>
+                                            </form>
+                                            @else
+                                            <form action="{{ route('user.makeadmin', $user) }}" method="Post">
+                                            @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                    Make Admin
+                                                </button>
+                                            </form>
+                                            @endif
+                                            <form action="{{ route('user.destroy', $user) }}" method="Post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                    Delete
+                                                </button>
+                                            </form>
                                     </div>
                                 </td>
                             </tr>

@@ -1,4 +1,4 @@
-# Tugas 6
+# Tugas 7
 
 ## 1. Middleware & Gate Admin Not Active
 ![Alt text](./screenshoot/tugas7/notactive.png)
